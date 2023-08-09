@@ -3,6 +3,7 @@
 let lastPointerEventDispachTime = 0;
 const CALC_INTERVAL = 1000;
 
+const sinInOut = (zeroToOne) => Math.sin((zeroToOne - 0.5) * Math.PI) + 0.5;
 
 window.addEventListener("load", () => {    
   const page = document.documentElement;
@@ -32,13 +33,8 @@ window.addEventListener("load", () => {
       titleClientRect.height / titleBgSize.height,
       titleClientRect.width / titleBgSize.width,
     ) * 1.25;
-    const margin = {
-      height: titleBgSize.height - titleClientRect.height / scale,
-      width: titleBgSize.width - titleClientRect.width / scale,
-    };
-    console.log(pageSize.width);
-    const xPercent = -50 + ((event.pageX / pageSize.width) - 0.5) * 20;
-    const yPercent = -50 + ((event.pageY / pageSize.height) - 0.5) * 20;
+    const xPercent = -50 + (sinInOut(event.pageX / pageSize.width) - 0.5) * 10;
+    const yPercent = -50 + (sinInOut(event.pageY / pageSize.height) - 0.5) * 10;
     titleBg.style.transform = `translate(${xPercent}%, ${yPercent}%) scale(${scale})`;
   }
 
