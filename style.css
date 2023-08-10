@@ -1,11 +1,109 @@
+@font-face {
+  font-family: "Unhinted Rounded M+ 1p";
+  src: url("./fonts/unhinted-rounded-mplus-1p-regular.woff2");
+
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Unhinted Rounded M+ 1p";
+  src: url("./fonts/unhinted-rounded-mplus-1p-bold.woff2");
+
+  font-weight: bold;
+}
+
 :root {
   --primary: #a5d4ad;
   --primary-vivid: #86C591;
 }
 
+* {
+  font-family: "Unhinted Rounded M+ 1p", sans-serif;
+  font-weight: normal;
+  color: #111111;
+}
+
 body {
   margin: 0;
   padding: 0;
+}
+
+/*
+ * from https://qiita.com/spaceonly/items/9aa8599a082cb72740b7
+ */
+.break-work-absolutely {
+  word-break: break-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  line-break: anywhere;
+  white-space: pre-wrap;
+  white-space: break-spaces;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.start {
+  align-items: flex-start;
+}
+
+.column-4 {
+  box-sizing: border-box;
+  width: 270px;
+}
+
+.text-s {
+  font-size: 17px;
+}
+
+.text-sm {
+  font-size: 17px;
+  font-weight: normal;
+  margin: 1px;
+  transform: translateY(1px);
+}
+
+.text-m {
+  font-size: 20px;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.icon-m {
+  font-size: 44px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.rounded {
+  border-radius: 4px;
 }
 
 .page-container {
@@ -15,7 +113,7 @@ body {
   position: absolute;
 }
 
-#title-screen {
+.title-screen {
   background: var(--primary);
   min-height: 720px;
   height: 720px;
@@ -26,7 +124,6 @@ body {
   overflow: hidden;
   position: absolute;
   transform: translate(-50%, -50%);
-  transition: 0.1s ease-in transform;
   top: 50%;
   left: 50%;
 }
@@ -154,8 +251,8 @@ body {
 }
 
 .title-description  {
-  font-family: "Rounded M+ 1p", sans-serif;
   font-size: 25px;
+  font-weight: bold;
   left: 50%;
   opacity: 0;
   position: absolute;
@@ -169,22 +266,155 @@ body {
   transform: translate(-50%, calc(-50% + 50px));
 }
 
-.title-front-container {
-  opacity: 1;
+.title-menu {
+  display: flex;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + 223px));
+}
+
+.title-menu-button {
+  background: none;
+  border: 0;
+  border-radius: 4px;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 32px;
+  margin: -10px;
+  padding: 14px 0 5px 0;
+  position: relative;
+  width: 344px;
+}
+
+.title-menu-button::before,
+.title-menu-button::after {
+  content: " ";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.title-menu-button::before {
   transition: opacity 0.5s;
+  background: linear-gradient(to left,
+                              rgba(238, 238, 238, 0), 
+                              rgba(238, 238, 238, 1) 20%, 
+                              rgba(238, 238, 238, 1) 80%,
+                              rgba(238, 238, 238, 0));
+}
+
+.title-menu-button::after {
+  transition: opacity 0.3s;
+  background: linear-gradient(to left,
+                              rgba(190, 237, 190, 0), 
+                              rgba(190, 237, 190, 1) 20%, 
+                              rgba(190, 237, 190, 1) 80%,
+                              rgba(190, 237, 190, 0));
+}
+
+.title-menu-button:focus::before,
+.title-menu-button:hover::before {
+  opacity: 1;
+}
+
+.title-menu-button:active::after {
+  opacity: 1;
+}
+
+.title-menu-button-text {
+  color: #eeeeee;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0 0 3px black) drop-shadow(0 0 4px #999999);
+  transition: color 0.2s;
+}
+
+.title-menu-button:hover > .title-menu-button-text {
+  color: var(--primary);
+}
+
+.dialog {
+  box-sizing: border-box;
+  padding: 40px;
+}
+
+.dialog-title {
+  font-size: 50px;
+  font-weight: bold;
+  margin: -20px 0 20px 0;
+}
+
+.file-selector {
+  background: var(--primary);
+  height: 100%;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.5s;
+  width: 100%;
+}
+
+.file-selector-buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.button {
+  background-color: #f8f8f8;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 3px 3px var(--primary-vivid);
+  cursor: pointer;
+  font-weight: bold;
+  padding: 15px 15px 10px 15px;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+
+.button:hover {
+  background-color: #FFFFFF;
+  box-shadow: 30px 30px var(--primary-vivid), 0 0 3px var(--primary-vivid);
+}
+
+.file-select-button {
+  /* height: 400px; */
+  margin-bottom: 40px;
+}
+
+.file-selector-button-preview-icon {
+  margin-right: 10px;
+}
+
+.file-selector-button-last-modified {
+  line-height: 0.9;
+}
+
+.file-non-existent-button:hover {
+  background-color: #ffdddd;
+}
+
+.file-selector-button-preview-text {
+  margin: 8px 0;
+}
+
+.default-character-icon {
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+.to-top {
+  transform: translate(-50%, -150%);
 }
 
 .to-transparent {
   opacity: 0;
-}
-
-.text-sm {
-  font-size: 17px;
-  font-weight: normal;
-  margin: 1px;
-  transform: translateY(1px);
-}
-
-.text-m {
-  font-size: 20px;
 }
