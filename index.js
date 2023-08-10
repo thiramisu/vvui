@@ -73,6 +73,8 @@ const $$$___RECENT_PROJECTS_DATA___$$$ = [
   }
 ];
 
+const $$$___LOAD_PROJECT_DATA___$$$ = 0;
+
 const asleep = (duration) => new Promise((resolve) => {
   setInterval(resolve, duration);
 });

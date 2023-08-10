@@ -66,6 +66,10 @@ body {
   align-items: flex-start;
 }
 
+.between {
+  justify-content: space-between;
+}
+
 .column-4 {
   box-sizing: border-box;
   width: 270px;
@@ -106,6 +110,13 @@ body {
   border-radius: 4px;
 }
 
+.position-center {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .page-container {
   height: 100%;
   width: 100%;
@@ -132,7 +143,6 @@ body {
   pointer-events: none;
   position: absolute;
   transform: translate(-50%, -50%);
-  transform-origin: center;
   top: 50%;
   left: 50%;
 }
@@ -159,7 +169,7 @@ body {
 #link-to-dormitory::after {
   background: white;
   border-radius: 4px;
-  content: "";
+  content: " ";
   height: 100%;
   opacity: 0;
   position: absolute;
@@ -186,7 +196,6 @@ body {
 
 .title-primary-bg {
   background: var(--primary);
-  min-height: 100%;
   height: 100%;
   pointer-events: none;
   position: absolute;
@@ -196,7 +205,6 @@ body {
 
 .title-mono-bg {
   background: #999999;
-  min-height: 100%;
   height: 100%;
   opacity: 1;
   pointer-events: none;
@@ -207,24 +215,15 @@ body {
 
 .title-logo-shadow {
   filter: drop-shadow(0 0 6px black);
-  left: 50%;
   opacity: 0.05;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  transform-origin: center;
   transition: opacity 1s;
-  top: 50%;
 }
 
 .title-logo {
   fill: var(--primary);
-  left: 50%;
   opacity: 0;
-  position: absolute;
   transition: transform 2s cubic-bezier(0.15, 0.71, 0.44, 1), opacity 1s, fill 1s;
   transform: translate(-150px, -150px) scale(5);
-  transform-origin: center;
-  top: 50%;
 }
 
 .title-logo-transform-animation1 {
@@ -250,14 +249,11 @@ body {
   filter: drop-shadow(0 0 6px black) drop-shadow(0 0 9px #999999);
 }
 
-.title-description  {
+.title-description {
   font-size: 25px;
   font-weight: bold;
-  left: 50%;
   opacity: 0;
-  position: absolute;
   transform: translate(-50%, calc(-50% + 80px));
-  top: 50%;
   transition: opacity 0.75s, transform 0.75s cubic-bezier(0.15, 0.71, 0.44, 1);
 }
 
@@ -268,9 +264,6 @@ body {
 
 .title-menu {
   display: flex;
-  left: 50%;
-  position: absolute;
-  top: 50%;
   transform: translate(-50%, calc(-50% + 223px));
 }
 
@@ -320,10 +313,7 @@ body {
 }
 
 .title-menu-button:focus::before,
-.title-menu-button:hover::before {
-  opacity: 1;
-}
-
+.title-menu-button:hover::before,
 .title-menu-button:active::after {
   opacity: 1;
 }
@@ -354,18 +344,12 @@ body {
 .file-selector {
   background: var(--primary);
   height: 100%;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
   transition: transform 0.5s;
   width: 100%;
 }
 
 .file-selector-buttons-wrapper {
-  display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   width: 100%;
 }
 
