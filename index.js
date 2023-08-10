@@ -26,7 +26,7 @@ const $$$___RECENT_PROJECTS_DATA___$$$ = [
     characters: ["春日部つむぎ", "雨晴はう", "波音リツ"],
     preview: {
       name: "ナースロボ＿タイプＴ", // 名前が一番長いので収まるかテスト
-      icon: "hogehoge",
+      icon: "images/face_FILL1_wght700_GRAD0_opsz48.png",
       text: "存在しないファイルはこんな感じになります。",
     },
     lastModified: undefined, // ファイルが存在しない時の仮
@@ -46,7 +46,7 @@ const $$$___RECENT_PROJECTS_DATA___$$$ = [
     characters: ["もち子さん", "剣崎雌雄"],
     preview: {
       name: "もち子さん",
-      icon: "images/face_FILL1_wght700_GRAD0_opsz48.png",
+      icon: "hogehoge",
       text: "存在しないアイコンの場合はこうなります。",
     },
     lastModified: new Date("1970-01-01T00:00:00"),

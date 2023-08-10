@@ -394,8 +394,12 @@ body {
   margin-right: 10px;
 }
 
+.file-selector-button-preview-name {
+  line-height: 1.25;
+}
+
 .file-selector-button-last-modified {
-  line-height: 0.9;
+  line-height: 1;
 }
 
 .file-non-existent-button:hover {
