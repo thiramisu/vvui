@@ -52,28 +52,39 @@ const $$$___RECENT_PROJECTS_DATA___$$$ = [
     lastModified: new Date("1970-01-01T00:00:00"),
   },
   {
-    title: "これは禁足文字のテストです!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    title: "これは禁則文字のテストです!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
     characters: ["WhiteCUL", "後鬼", "No.7"],
     preview: {
       name: "WhiteCUL",
       icon: "images/face_FILL1_wght700_GRAD0_opsz48.png",
-      text: "禁足文字のテスト!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+      text: "禁則文字のテスト!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
     },
     lastModified: new Date("1970-01-01T00:00:00"),
   },
   {
-    title: "禁足文字のテストです!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    title: "禁則文字のテストです!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
     characters: ["玄野武宏", "白上虎太郎", "青山龍星", "冥鳴ひまり", "九州そら"],
     preview: {
       name: "玄野武宏",
       icon: "images/face_FILL1_wght700_GRAD0_opsz48.png",
-      text: "禁足文字のテスト!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+      text: "禁則文字のテスト!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
     },
     lastModified: new Date("1970-01-01T00:00:00"),
   }
 ];
 
 const $$$___LOAD_PROJECT_DATA___$$$ = 0;
+
+const $$$___TITLE_ILLUSTLATOR_NAMES___$$$ = [
+  "",
+  "坂本アヒル",
+  "490",
+  "moiky",
+  "のほしお",
+  "さよなか",
+  "レイア",
+  "のんたお",
+];
 
 const asleep = (duration) => new Promise((resolve) => {
   setInterval(resolve, duration);
@@ -114,7 +125,10 @@ const titleScreen = (page) => {
 
   const titleScreen = document.getElementById("title-screen");
   const titleBg = document.getElementById("title-bg");
-  titleBg.src = `images/top-illust-${Math.floor(Math.random() * BACKGROUND_IMAGE_ID_MAX + 1).toString().padStart(3, '0')}.webp`;
+  const bgId = Math.floor(Math.random() * BACKGROUND_IMAGE_ID_MAX + 1);
+  titleBg.src = `images/top-illust-${bgId.toString().padStart(3, '0')}.webp`;
+  const titleIllustlatorName = document.getElementById("title-illustlator-name");
+  titleIllustlatorName.textContent = $$$___TITLE_ILLUSTLATOR_NAMES___$$$[bgId];
   let titleBgSize;
   let titleClientRect = titleScreen.getBoundingClientRect();
   const titleLogo = document.getElementById("title-logo");
@@ -233,7 +247,7 @@ const fileSelectorScreen = () => {
       if (lastModified === undefined) {
         buttonElement.classList.add("file-non-existent-button");
         buttonElement.addEventListener("click", () => {
-          if (confirm("この履歴を削除しますか？")) {
+          if (confirm(`存在しないファイルです。場所が移動されたか、削除された可能性があります。この履歴を削除しますか？`)) {
             alert("削除は未実装です！");
           }
         });
@@ -265,25 +279,34 @@ const fileSelectorScreen = () => {
     }
   };
 
+  const init = async () => {
+    const backToTitleButton = document.getElementById("dialog-back-to-title-button");
+    backToTitleButton.addEventListener("click", hide);
+  };
+
   const show = async () => {
     if (isShown) return;
     isShown = true;
     await loadRecentProjectFiles();
     fileSelectorScreen.hidden = false;
-    await asleep(0);
-    fileSelectorScreen.classList.remove("to-top");
+    await asleep(0); // アニメーションさせる
+    fileSelectorScreen.classList.remove("to-bottom");
   };
 
   const hide = async () => {
     if (!isShown) return;
     isShown = false;
-    fileSelectorScreen.classList.add("to-top");
-    await asleep(2000);
-    if (!isShown) return;
+    fileSelectorScreen.classList.add("to-bottom");
+    await asleep(500);
+    if (isShown) return;
+    while(buttonsWrapper.children.length > 2) {
+      buttonsWrapper.removeChild(buttonsWrapper.children[buttonsWrapper.children.length - 1]);
+    }
     fileSelectorScreen.hidden = true;
   };
 
   return {
+    init,
     show,
     hide,
   };
@@ -299,5 +322,6 @@ window.addEventListener("load", () => {
     fileSelector,
   });
 
+  fileSelector.init();
 
 });

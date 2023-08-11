@@ -29,9 +29,12 @@
           </span>
         </button>
       </div>
-      <a id="link-to-dormitory" class="text-m" href="https://voicevox.hiroshiba.jp/dormitory/">
+      <div class="text-m title-illustlator">
+        イラスト：<span id="title-illustlator-name" class="title-illustlator-name"></span>
+      </div>
+      <a id="link-to-dormitory" class="button text-m" href="https://voicevox.hiroshiba.jp/dormitory/">
         <span>
-          ボイボ寮<span class="text-sm">へ<br>行ってみる！</span>
+          <span class="bold">ボイボ寮</span><span class="text-sm">へ<br>行ってみる！</span>
         </span>
         <span class="material-symbols-outlined icon-m">door_open</span>
       </a>
@@ -58,8 +61,14 @@
           </g>
       </svg>
       <div id="title-description" class="position-center title-description">無料で使える中品質なテキスト読み上げソフトウェア</div>
-      <div id="file-selector" class="position-center dialog file-selector to-top" hidden>
+      <div id="file-selector" class="position-center dialog file-selector to-bottom" hidden>
         <div class="flex">
+          <button id="dialog-back-to-title-button" class="flex button text-m column-4 dialog-back-to-title-button">
+            タイトルへ戻る
+            <span class="material-symbols-outlined icon-m  dialog-back-to-title-icon">
+              keyboard_double_arrow_down
+            </span>
+          </button>
           <div class="dialog-title">
             LOAD<span class="dialog-subtitle text-m"> / 最近のプロジェクトを読み込む</span>
           </div>
@@ -67,7 +76,7 @@
         <div id="file-selector-buttons-wrapper" class="between flex file-selector-buttons-wrapper">
           <input id="file-selector-input" type="file" class="visually-hidden">
           <label for="file-selector-input" class="button column-4 flex column start file-select-button">
-            <div class="flex">
+            <div class="flex start">
               <img src="images/vvproj48.png" width="40" class="file-selector-button-preview-icon" />
               <div class="flex column start">
                 <div class="text-s bold file-selector-button-preview-name">VOICEVOXシステム</div>
@@ -77,15 +86,15 @@
             <div class="text-left text-m file-selector-button-preview-text break-work-absolutely">ドラッグ＆ドロップもできますよ！</div>
             <div>
               <span class="bold text-s file-selector-button-title break-work-absolutely">ファイルから読み込む</span>
-              <span>より</span>
+              <span class="text-ss">より</span>
             </div>
           </button>
         </div>
       </div>
     </div>
-    <main>
-    </main>
   </div>
+  <main class="to-transparent">
+  </main>
   <template id="file-selector-button-template">
     <button class="button column-4 flex column start file-select-button">
       <div class="flex start">
@@ -98,7 +107,7 @@
       <div class="text-left text-m file-selector-button-preview-text break-work-absolutely"></div>
       <div>
         <span class="bold text-s file-selector-button-title break-work-absolutely"></span>
-        <span>より</span>
+        <span class="text-ss">より</span>
       </div>
     </button>
   </template>
