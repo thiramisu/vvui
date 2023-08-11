@@ -7,25 +7,27 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,300,0,0" />  <script src="index.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="page-container">
+<body style="background: #7777cc;">
+  <div class="page-container" hidden>
     <div id="title-screen" class="position-center title-screen">
       <img id="title-bg" class="position-center top-image" />
       <div class="position-center title-menu">
         <button id="title-memu-start" class="title-menu-button">
           <span class="title-menu-button-text">
-            NEW PROJECT<span class="text-m">はじめから</span>
+            <span class="bold">NEW PROJECT</span>
+            <span class="text-m">はじめから</span>
           </span>
         </button>
         <button id="title-memu-continue" class="title-menu-button">
           <span class="title-menu-button-text">
-            CONTINUE
+            <span class="bold">CONTINUE</span>
             <span class="text-m">つづきから</span>
           </span>
         </button>
         <button id="title-memu-end" class="title-menu-button">
           <span class="title-menu-button-text">
-            EXIT<span class="text-m">アプリ終了</span>
+            <span class="bold">EXIT</span>
+            <span class="text-m">アプリ終了</span>
           </span>
         </button>
       </div>
@@ -94,40 +96,84 @@
     </div>
   </div>
   <main>
-    <div class="text-frame-wrapper">
-      <div class="text-frame-top">
-        <div>
-          <select id="character">
-            <option>四国めたん</option>
-          </select>
-          <select id="style">
-            <option>ノーマル</option>
-          </select>
+    <div class="position-center flex column text-l text-frame-wrapper">
+      <div class="flex between end control text-frame-top">
+        <div class="flex end">
+          <button id="character" class="text-control-tab">
+            <div class="text-control-tab-inner connect-bottom character">
+              めたん
+            </div>
+          </button>
+          <button id="style" class="text-control-tab">
+            <div class="text-control-tab-inner connect-bottom connect-left character-style">
+              ノーマル
+            </div>
+          </button>
         </div>
-        <div>
-          <div>EDIT</div>
-          <div>SAVE</div>
-          <div>AUTO</div>
-          <div>1つ書き出し</div>
+        <div class="flex end">
+          <button class="flex column center bold">
+            <div class="text-s">EDIT</div>
+            <span class="text-ll material-symbols-outlined">
+              edit
+            </span>
+          </button>
+          <button class="flex column center bold">
+            <div class="text-s">SAVE</div>
+            <span class="text-ll material-symbols-outlined">
+              save
+            </span>
+          </button>
+          <button class="flex column center bold">
+            <div class="text-s">AUTO</div>
+            <span class="text-ll material-symbols-outlined">
+              playlist_play
+            </span>
+          </button>
+          <button class="text-control-tab">
+            <div class="text-control-tab-inner connect-bottom">
+              1つ書き出し
+            </div>
+          </button>
         </div>
       </div>
-      <div class="text-frame"></div>
-      <div class="text-frame-bottom">
-        <div>
-          <select id="preset">
-            <option>プリセット未設定</option>
-          </select>
-          <div>
-            (鎖)
+      <div class="flex text-frame">
+        <div id="text-field" class="text-field bold" contenteditable="true">ああああ</div>
+        <button class="play-button">
+          <div class="material-symbols-outlined bold play-button-icon">
+            keyboard_voice
           </div>
-          <div>
-            (歯車)
+        </button>
+      </div>
+      <div class="flex between start control text-frame-bottom">
+        <div class="text-control-tab">
+          <div class="flex text-control-tab-inner connect-top preset-tab">
+            <button class="text-ll preset-tab-icon material-symbols-outlined text-control-select">
+              settings_account_box
+            </button>
+            <select id="preset" class="text-control-select preset">
+              <option class="bold">プリセット未設定</option>
+            </select>
+            <button class="text-ll preset-tab-icon material-symbols-outlined text-control-select">
+              link
+            </button>
           </div>
         </div>
-        <div>
-          <div>アクセント</div>
-          <div>イントネーション</div>
-          <div>長さ</div>
+        <div class="flex">
+          <button class="text-control-tab connect-top">
+            <div class="text-control-tab-inner connect-top">
+              ｱｸｾﾝﾄ
+            </div>
+          </button>
+          <button class="text-control-tab connect-top">
+            <div class="text-control-tab-inner connect-top">
+              ｲﾝﾄﾈｰｼｮﾝ
+            </div>
+          </button>
+          <button class="text-control-tab connect-top">
+            <div class="text-control-tab-inner connect-top">
+              長さ
+            </div>
+          </button>
         </div>
       </div>
     </div>
