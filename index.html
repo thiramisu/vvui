@@ -9,8 +9,8 @@
 </head>
 <body>
   <div class="page-container">
-    <div id="title-screen" class="title-screen">
-      <img id="title-bg" class="top-image" />
+    <div id="title-screen" class="position-center title-screen">
+      <img id="title-bg" class="position-center top-image" />
       <div class="position-center title-menu">
         <button id="title-memu-start" class="title-menu-button">
           <span class="title-menu-button-text">
@@ -36,7 +36,7 @@
         <span>
           <span class="bold">ボイボ寮</span><span class="text-sm">へ<br>行ってみる！</span>
         </span>
-        <span class="material-symbols-outlined icon-m">door_open</span>
+        <span class="material-symbols-outlined text-ll link-to-dormitory-icon">door_open</span>
       </a>
       <div id="title-primary-bg" class="title-primary-bg"></div>
       <div id="title-mono-bg" class="title-mono-bg"></div>
@@ -63,19 +63,19 @@
       <div id="title-description" class="position-center title-description">無料で使える中品質なテキスト読み上げソフトウェア</div>
       <div id="file-selector" class="position-center dialog file-selector to-bottom" hidden>
         <div class="flex">
-          <button id="dialog-back-to-title-button" class="flex button text-m column-4 dialog-back-to-title-button">
+          <button id="dialog-back-to-title-button" class="flex button text-m column-3 dialog-back-to-title-button">
             タイトルへ戻る
             <span class="material-symbols-outlined icon-m  dialog-back-to-title-icon">
               keyboard_double_arrow_down
             </span>
           </button>
-          <div class="dialog-title">
+          <div class="column-6 text-ll dialog-title">
             LOAD<span class="dialog-subtitle text-m"> / 最近のプロジェクトを読み込む</span>
           </div>
         </div>
-        <div id="file-selector-buttons-wrapper" class="between flex file-selector-buttons-wrapper">
+        <div id="file-selector-buttons-wrapper" class="between flex start file-selector-buttons-wrapper">
           <input id="file-selector-input" type="file" class="visually-hidden">
-          <label for="file-selector-input" class="button column-4 flex column start file-select-button">
+          <label for="file-selector-input" class="button column-3 flex column start file-select-button">
             <div class="flex start">
               <img src="images/vvproj48.png" width="40" class="file-selector-button-preview-icon" />
               <div class="flex column start">
@@ -93,10 +93,47 @@
       </div>
     </div>
   </div>
-  <main class="to-transparent">
+  <main>
+    <div class="text-frame-wrapper">
+      <div class="text-frame-top">
+        <div>
+          <select id="character">
+            <option>四国めたん</option>
+          </select>
+          <select id="style">
+            <option>ノーマル</option>
+          </select>
+        </div>
+        <div>
+          <div>EDIT</div>
+          <div>SAVE</div>
+          <div>AUTO</div>
+          <div>1つ書き出し</div>
+        </div>
+      </div>
+      <div class="text-frame"></div>
+      <div class="text-frame-bottom">
+        <div>
+          <select id="preset">
+            <option>プリセット未設定</option>
+          </select>
+          <div>
+            (鎖)
+          </div>
+          <div>
+            (歯車)
+          </div>
+        </div>
+        <div>
+          <div>アクセント</div>
+          <div>イントネーション</div>
+          <div>長さ</div>
+        </div>
+      </div>
+    </div>
   </main>
   <template id="file-selector-button-template">
-    <button class="button column-4 flex column start file-select-button">
+    <button class="button column-3 flex column start file-select-button">
       <div class="flex start">
         <img width="40" class="file-selector-button-preview-icon" />
         <div class="flex column start">
@@ -109,7 +146,14 @@
         <span class="bold text-s file-selector-button-title break-work-absolutely"></span>
         <span class="text-ss">より</span>
       </div>
+      <div class="file-selector-button-characters"></div>
     </button>
+  </template>
+  <template id="character-icon-template">
+    <div>
+      <img class="character-icon-ss" height="20">
+      <span class="tooltip character-name-tooltip"></span>
+    </div>
   </template>
   <template id="character-no-image-template">
     <span class="material-symbols-outlined icon-m default-character-icon">

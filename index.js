@@ -114,6 +114,7 @@ function generateUuid() {
 }
 
 const formatDate = (() => {
+  // TODO: 59秒/1分/24時間/48時間/日付 に対応
   return (date) => date === undefined ? "日時不明" : "昨日";
 })();
 

@@ -73,9 +73,14 @@ body {
   justify-content: space-between;
 }
 
-.column-4 {
+.column-3 {
   box-sizing: border-box;
   width: 270px;
+}
+
+.column-6 {
+  box-sizing: border-box;
+  width: 580px;
 }
 
 .text-ss {
@@ -95,6 +100,10 @@ body {
 
 .text-m {
   font-size: 20px;
+}
+
+.text-ll {
+  font-size: 64px;
 }
 
 .text-left {
@@ -141,19 +150,11 @@ body {
   width: 1280px;
   max-width: 1280px;
   overflow: hidden;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
   user-select: none;
-  left: 50%;
 }
 
 #title-bg {
   pointer-events: none;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
 }
 
 #link-to-dormitory {
@@ -161,10 +162,11 @@ body {
   background: rgba(var(--primary-rgb), var(--little-transparent));
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  box-sizing: border-box;
   display: flex;
-  height: 60px;
+  height: 80px;
   line-height: 1;
-  padding: 9px 15px 10px 20px;
+  padding: 11px 10px 10px 20px;
   position: absolute;
   right: 0;
   text-decoration: none;
@@ -172,7 +174,7 @@ body {
 }
 
 .link-to-dormitory-icon {
-  font-size: 40px;
+  margin-top: 4px;
 }
 
 .title-primary-bg {
@@ -300,7 +302,7 @@ body {
 }
 
 .title-menu-button-text {
-  color: #eeeeee;
+  color: #f8f8f8;
   display: flex;
   flex-direction: column;
   filter: drop-shadow(0 0 3px black) drop-shadow(0 0 4px #999999);
@@ -335,12 +337,13 @@ body {
 .dialog-title {
   background: rgba(var(--primary-rgb), var(--little-transparent));
   border-radius: 4px;
-  font-size: 50px;
+  font-size: 64px;
   font-weight: bold;
+  height: 80px;
+  line-height: 1;
   margin: -20px 40px 20px 0;
-  padding: 0 40px;
+  padding: 9px 40px 0 40px;
   text-align: center;
-  width: 500px;
 }
 
 .file-selector {
@@ -352,6 +355,7 @@ body {
 
 .file-selector-buttons-wrapper {
   flex-wrap: wrap;
+  /* height: 800px; */
   width: 100%;
 }
 
@@ -362,7 +366,7 @@ body {
   box-shadow: 3px 3px var(--primary-vivid);
   cursor: pointer;
   font-weight: bold;
-  padding: 15px 15px 10px 15px;
+  padding: 14px 15px;
   transition: box-shadow 0.2s, background 0.2s;
 }
 
