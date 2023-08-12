@@ -110,6 +110,11 @@
         class="position-center character-image character-2-2"
       />
     </div>
+    <input
+      type="color"
+      onchange="document.getElementById('main-background').style.background = this.value"
+      style="position: absolute; user-select: initial;"
+    />
     <div class="flex column text-l text-frame-wrapper">
       <div id="character-selector" class="character-selector">
         
@@ -133,6 +138,7 @@
           </button>
         </div>
         <div class="flex end">
+          <span class="text-m" style="position: absolute; top: 20px; z-index: 1;">ここのボタンは<br>改良予定</span>
           <button class="flex column center bold text-control-shortcut-button">
             <div class="text-s text-white single-line">EDIT</div>
             <span class="text-l text-white single-line material-symbols-outlined">

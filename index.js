@@ -531,6 +531,9 @@ const characterSelectCard = () => {
   const init = ({ sceneCharactors }) => {
     sceneCharactorsHandler = sceneCharactors;
     characterSelector.append(...KANA_LINES.map(kanaLineButton));
+    addCharacter({
+      name: "a",
+    });
   };
 
   const show = async () => {

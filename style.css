@@ -449,12 +449,12 @@ body {
  * メイン画面
  */
 .main {
-  min-width: 960px;
+  min-width: 880px;
   transition: opacity 0.5s;
 }
 
 .main-background {
-  min-width: 960px;
+  min-width: 880px;
   position: absolute;
   z-index: -5;
 }
@@ -463,7 +463,9 @@ body {
  * メイン画面 - 立ち絵
  */
 .illust {
-  position: absolute;  
+  min-width: 880px;
+  pointer-events: none;
+  position: absolute;
 }
 
 .character-image {
@@ -605,8 +607,15 @@ body {
   left: max(40px, 50% - 720px);
   position: absolute;
   width: calc(100% - 80px);
-  min-width: 880px;
   max-width: 1440px;
+}
+
+@media (max-width:1080px) {
+  .text-frame-wrapper {
+    left: initial;
+    width: 100%;
+    min-width: 880px;
+  }
 }
 
 .text-frame-top,
@@ -648,6 +657,12 @@ body {
 .text-frame-middle {
   border-radius: 8px;
   overflow: hidden;
+}
+
+@media (max-width:1080px) {
+  .text-frame-middle {
+    border-radius: 0;
+  }
 }
 
 .text-frame {
@@ -716,12 +731,14 @@ body {
  * メイン画面 - テキスト欄周り - キャラ選択
  */
 .character-selector {
+  margin-left: 20px;
   position: absolute;
   top: -100px;
   transform: scale(0);
   transform-origin: 11% 167%;
   transition: transform 0.5s ease-in-out;
 }
+
 
 /**
  * メイン画面 - テキスト欄周り - 詳細調整欄
