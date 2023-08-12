@@ -19,6 +19,7 @@
   --primary-vivid: #86C591;
   --primary-vivid-rgb: 134, 197, 145;
   --little-transparent: 0.85;
+  --border-light: solid 2px rgba(128, 128, 128, 0.3);
 }
 
 * {
@@ -100,6 +101,10 @@ body {
   color: var(--text);
 }
 
+.text-white {
+  color: white;
+}
+
 .text-left {
   text-align: left;
 }
@@ -114,6 +119,10 @@ body {
 
 .bold {
   font-weight: bold;
+}
+
+.single-line {
+  line-height: 1;
 }
 
 .rounded {
@@ -469,6 +478,7 @@ body {
 .text-control-tab:focus-visible > .text-control-tab-inner:not(.character).connect-bottom {
   height:80px;
   padding-bottom: 20px;
+  position: relative;
 }
 
 .text-control-tab-inner:not(.preset-tab).connect-top {
@@ -496,7 +506,18 @@ body {
   font-weight: bold;
 }
 
+.text-control-shortcut-button {
+  background: none;
+  color: white;
+  cursor: pointer;
+  border: none;
+  filter: drop-shadow(3px 3px 6px var(--primary));
+}
+
 .text-frame-wrapper {
+  bottom: 20px;
+  left: 40px;
+  position: absolute;
   width: calc(100% - 80px);
 }
 
@@ -523,11 +544,15 @@ body {
 }
 
 .character-style {
-  border-left: none;
-  border-top-left-radius: 0;
-  margin-left: -50px;
+  margin-left: -54px;
   padding-left: 40px;
-  position: relative;
+}
+
+.text-control-tab-inner.morph-add {
+  border-left: var(--border-light);
+  margin-left: -50px;
+  position:relative;
+  z-index: 20;
 }
 
 .text-frame {
@@ -545,7 +570,7 @@ body {
 .play-button {
   background: none;
   border: none;
-  border-left: solid 2px rgb(128 128 128 / 30%);
+  border-left: var(--border-light);
   color: #111111;
   cursor: pointer;
   opacity: var(--little-transparent);
@@ -589,6 +614,7 @@ body {
   padding: 0 20px;
   text-overflow: ellipsis;
   width: 406px;
+  height: 100%;
 }
 
 .text-ss {

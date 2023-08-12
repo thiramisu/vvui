@@ -86,6 +86,114 @@ const $$$___TITLE_ILLUSTLATOR_NAMES___$$$ = [
   "のんたお",
 ];
 
+const $$$___CHARACTER_DATA___$$$ = {
+  // 50音順
+  雨晴はう: {
+    latin: "amehare_hau",
+    nickname: "はう",
+  },
+  青山龍星: {
+    latin: "aoyama_ryusei",
+    nickname: "龍星",
+  },
+  櫻歌ミコ: {
+    latin: "ouka_miko",
+    nickname: "ミコ",
+  },
+  春日部つむぎ: {
+    latin: "kasukabe_tsumugi",
+    nickname: "つむぎ",
+  },
+  麒ヶ島宗麟: {
+    latin: "kigashima_sourin",
+    nickname: "麒ヶ島",
+  },
+  九州そら: {
+    latin: "kyushu_sora",
+    nickname: "そら",
+  },
+  玄野武宏: {
+    latin: "kurono_takehiro",
+    nickname: "武宏",
+  },
+  剣崎雌雄: {
+    latin: "kenzaki_mesuo",
+    nickname: "雌雄",
+  },
+  後鬼: {
+    latin: "goki",
+    nickname: "後鬼",
+  },
+  "小夜/SAYO": {
+    latin: "sayo",
+    nickname: "小夜",
+  },
+  四国めたん: {
+    latin: "shikoku_metan",
+    nickname: "めたん",
+  },
+  白上虎太郎: {
+    latin: "shirakami_kotarou",
+    nickname: "虎太郎",
+  },
+  すんだもん: {
+    latin: "zundamon",
+    nickname: "すんだもん",
+  },
+  ちび式じい: {
+    latin: "chibishikiji",
+    nickname: "ちびじい",
+  },
+  中国うさぎ: {
+    latin: "chugoku_usagi",
+    nickname: "うさぎ",
+  },
+  ナースロボ＿タイプＴ: {
+    latin: "nurserobo_typet",
+    nickname: "ＴＴ",
+  },
+  波音リツ: {
+    latin: "namine_ritsu",
+    nickname: "リツ",
+  },
+  "No.7": {
+    latin: "number_seven",
+    nickname: "No.7",
+  },
+  猫使アル: {
+    latin: "nekotsuka_aru",
+    nickname: "アル",
+  },
+  猫使ビィ: {
+    latin: "bustup-nekotsuka_bi",
+    nickname: "ビィ",
+  },
+  春歌ナナ: {
+    latin: "haruka_nana",
+    nickname: "ナナ",
+  },
+  "†聖騎士紅桜†": {
+    latin: "horinaito_benizakura",
+    nickname: "†紅桜†",
+  },
+  WhiteCUL: {
+    latin: "white_cul",
+    nickname: "WhiteCUL",
+  },
+  冥鳴ひまり: {
+    latin: "meimei_himari",
+    nickname: "ひまり",
+  },
+  もち子さん: {
+    latin: "mochikosan",
+    nickname: "もち子",
+  },
+  雀松朱司: {
+    latin: "wakamatsu_akashi",
+    nickname: "朱司",
+  },
+};
+
 const asleep = (duration) => new Promise((resolve) => {
   setInterval(resolve, duration);
 });
@@ -127,7 +235,7 @@ const titleScreen = (page) => {
   const titleScreen = document.getElementById("title-screen");
   const titleBg = document.getElementById("title-bg");
   const bgId = Math.floor(Math.random() * BACKGROUND_IMAGE_ID_MAX + 1);
-  titleBg.src = `images/top-illust-${bgId.toString().padStart(3, '0')}.webp`;
+  titleBg.src = `images/top-illust/${bgId.toString().padStart(3, '0')}.webp`;
   const titleIllustlatorName = document.getElementById("title-illustlator-name");
   titleIllustlatorName.textContent = $$$___TITLE_ILLUSTLATOR_NAMES___$$$[bgId];
   let titleBgSize;
