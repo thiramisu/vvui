@@ -26,10 +26,28 @@
   font-family: "Unhinted Rounded M+ 1p", sans-serif;
 }
 
+html {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   color: var(--text);
+  height: 100%;
   margin: 0;
   padding: 0;
+  transition: background 0.5s;
+  width: 100%;
+  z-index: -5;
+}
+
+.bb {
+  background: #00f;
+}
+
+.full-size {
+  height: 100%;
+  width: 100%;
 }
 
 /*
@@ -44,18 +62,15 @@ body {
   white-space: break-spaces;
 }
 
-.visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
 .nowrap {
   white-space: nowrap;
+}
+
+.no-overflow {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .flex {
@@ -144,6 +159,9 @@ body {
   position: absolute;
 }
 
+/**
+ * タイトル画面
+ */
 .title-screen {
   background: var(--primary);
   min-height: 720px;
@@ -153,6 +171,7 @@ body {
   width: 1280px;
   max-width: 1280px;
   overflow: hidden;
+  transition: opacity 0.5s;
   user-select: none;
 }
 
@@ -371,6 +390,7 @@ body {
   font-weight: bold;
   padding: 14px 15px;
   transition: box-shadow 0.2s, background 0.2s;
+  user-select: none;
 }
 
 .button:hover {
@@ -396,6 +416,7 @@ body {
 }
 
 .file-select-button {
+  font-weight: normal;
   margin-bottom: 40px;
 }
 
@@ -425,7 +446,66 @@ body {
 }
 
 /**
- * テキスト欄周り
+ * メイン画面
+ */
+.main {
+  min-width: 960px;
+  transition: opacity 0.5s;
+}
+
+.main-background {
+  min-width: 960px;
+  position: absolute;
+  z-index: -5;
+}
+
+/**
+ * メイン画面 - 立ち絵
+ */
+.illust {
+  position: absolute;  
+}
+
+.character-image {
+  opacity: 0.7;
+  pointer-events: none;
+  transition: left 0.5s cubic-bezier(0.4, -0.5, 0.6, 1.5);
+  user-select: none;
+  z-index: -1;
+}
+
+@media (min-height:1080px) {
+  .character-image {
+    bottom: 0;
+    top: initial;
+    transform: translate(-50%, 0);
+  }
+}
+
+.focus-active-character > .character-image {
+  left: 200%;
+}
+
+.character-2-1 {
+  left: 25%;
+}
+
+.character-2-2 {
+  left: 75%;
+}
+
+.active-character-image {
+  opacity: 1;
+  transition: left 0.5s ease-in-out;
+  z-index: 0;
+}
+
+.focus-active-character > .active-character-image {
+  left: 75%;
+}
+
+/**
+ * メイン画面 - テキスト欄周り
  */
 .control {
   font-weight: bold;
@@ -445,13 +525,14 @@ body {
 
 .text-control-tab-inner {
   align-items: center;
-  background: white;
+  background: rgba(255, 255, 255, 0.85);
   border: solid 4px rgba(var(--primary-rgb), var(--little-transparent));
   border-radius: 8px;
   box-shadow: 3px 3px var(--primary-vivid);
   box-sizing: border-box;
   color: #555555;
   display: flex;
+  flex-shrink: 0;
   font-size: 30px;
   font-weight: bold;
   height: 80px;
@@ -492,9 +573,14 @@ body {
   transform: translateY(-20px);
 }
 
+.active-tab > .text-control-tab-inner:not(.preset-tab).connect-top,
 .text-control-tab:hover > .text-control-tab-inner:not(.preset-tab).connect-top,
 .text-control-tab:focus-visible > .text-control-tab-inner:not(.preset-tab).connect-top {
   transform: translateY(0);
+}
+
+.active-tab > .text-control-tab-inner:not(.preset-tab).connect-top {
+  background: var(--primary);
 }
 
 .text-control-select {
@@ -516,9 +602,11 @@ body {
 
 .text-frame-wrapper {
   bottom: 20px;
-  left: 40px;
+  left: max(40px, 50% - 720px);
   position: absolute;
   width: calc(100% - 80px);
+  min-width: 880px;
+  max-width: 1440px;
 }
 
 .text-frame-top,
@@ -528,6 +616,8 @@ body {
 }
 
 .text-control-tab-inner.character {
+  background: var(--primary);
+  color: var(--text);
   position:relative;
   z-index: 20;
   height: 80px;
@@ -536,11 +626,11 @@ body {
 
 .text-control-tab:hover > .character,
 .text-control-tab:focus-visible > .character {
-  background: rgba(238, 238, 238);
+  background: var(--primary-vivid);
 }
 
 .text-control-tab:active > .character{
-  background: rgba(215, 215, 215);
+  background: var(--primary-vivid);
 }
 
 .character-style {
@@ -555,9 +645,13 @@ body {
   z-index: 20;
 }
 
+.text-frame-middle {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .text-frame {
   background: rgba(var(--primary-rgb), var(--little-transparent));
-  border-radius: 8px;
   position: relative;
 }
 
@@ -565,6 +659,8 @@ body {
   padding: 40px;
   min-height: 192px;
   flex-grow: 1;
+  position: relative;
+  z-index: 100;
 }
 
 .play-button {
@@ -612,11 +708,32 @@ body {
 
 .preset {
   padding: 0 20px;
-  text-overflow: ellipsis;
-  width: 406px;
+  max-width: 406px;
   height: 100%;
 }
 
+/**
+ * メイン画面 - テキスト欄周り - キャラ選択
+ */
+.character-selector {
+  position: absolute;
+  top: -100px;
+  transform: scale(0);
+  transform-origin: 11% 167%;
+  transition: transform 0.5s ease-in-out;
+}
+
+/**
+ * メイン画面 - テキスト欄周り - 詳細調整欄
+ */
+.audio-detail {
+  background: white;
+  padding: 40px;
+}
+
+/*
+ * 汎用
+ */
 .text-ss {
   font-size: 13px;
 }
@@ -677,6 +794,10 @@ body {
 
 .to-bottom {
   transform: translate(-50%, 50%);
+}
+
+.to-initial {
+  transform: initial;
 }
 
 .to-transparent {

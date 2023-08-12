@@ -91,106 +91,132 @@ const $$$___CHARACTER_DATA___$$$ = {
   雨晴はう: {
     latin: "amehare_hau",
     nickname: "はう",
+    kana: "あめはれはう",
   },
   青山龍星: {
     latin: "aoyama_ryusei",
     nickname: "龍星",
+    kana: "あおやまりゅうせい",
   },
   櫻歌ミコ: {
     latin: "ouka_miko",
     nickname: "ミコ",
+    kana: "おうかみこ",
   },
   春日部つむぎ: {
     latin: "kasukabe_tsumugi",
     nickname: "つむぎ",
+    kana: "かすかべつむぎ",
   },
   麒ヶ島宗麟: {
     latin: "kigashima_sourin",
     nickname: "麒ヶ島",
+    kana: "きがしまそうりん",
   },
   九州そら: {
     latin: "kyushu_sora",
     nickname: "そら",
+    line: "か",
   },
   玄野武宏: {
     latin: "kurono_takehiro",
     nickname: "武宏",
+    line: "か",
   },
   剣崎雌雄: {
     latin: "kenzaki_mesuo",
     nickname: "雌雄",
+    line: "か",
   },
   後鬼: {
     latin: "goki",
     nickname: "後鬼",
+    line: "か",
   },
   "小夜/SAYO": {
     latin: "sayo",
     nickname: "小夜",
+    line: "さ",
   },
   四国めたん: {
     latin: "shikoku_metan",
     nickname: "めたん",
+    line: "さ",
   },
   白上虎太郎: {
     latin: "shirakami_kotarou",
     nickname: "虎太郎",
+    line: "さ",
   },
   すんだもん: {
     latin: "zundamon",
     nickname: "すんだもん",
+    line: "さ",
   },
   ちび式じい: {
     latin: "chibishikiji",
     nickname: "ちびじい",
+    line: "た",
   },
   中国うさぎ: {
     latin: "chugoku_usagi",
     nickname: "うさぎ",
+    line: "た",
   },
   ナースロボ＿タイプＴ: {
     latin: "nurserobo_typet",
     nickname: "ＴＴ",
+    line: "な",
   },
   波音リツ: {
     latin: "namine_ritsu",
     nickname: "リツ",
+    line: "な",
   },
   "No.7": {
     latin: "number_seven",
     nickname: "No.7",
+    line: "な",
   },
   猫使アル: {
     latin: "nekotsuka_aru",
     nickname: "アル",
+    line: "な",
   },
   猫使ビィ: {
     latin: "bustup-nekotsuka_bi",
     nickname: "ビィ",
+    line: "な",
   },
   春歌ナナ: {
     latin: "haruka_nana",
     nickname: "ナナ",
+    line: "は",
   },
   "†聖騎士紅桜†": {
     latin: "horinaito_benizakura",
     nickname: "†紅桜†",
+    line: "は",
   },
   WhiteCUL: {
     latin: "white_cul",
     nickname: "WhiteCUL",
+    line: "は",
   },
   冥鳴ひまり: {
     latin: "meimei_himari",
     nickname: "ひまり",
+    line: "ま",
   },
   もち子さん: {
     latin: "mochikosan",
     nickname: "もち子",
+    line: "ま",
   },
   雀松朱司: {
     latin: "wakamatsu_akashi",
     nickname: "朱司",
+    line: "わ",
   },
 };
 
@@ -201,6 +227,7 @@ let lastPointerEventDispachTime = 0;
 const CALC_INTERVAL = 1000;
 const BACKGROUND_IMAGE_ID_MAX = 7;
 const PREVIEW_MAX_FILE_SIZE = 20;
+const KANA_LINES = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
 
 const sinInOut = (zeroToOne) => Math.sin((zeroToOne - 0.5) * Math.PI) + 0.5;
 
@@ -290,22 +317,31 @@ const titleScreen = (page) => {
     titleLogo.classList.add("title-logo-fill-animation3");
   };
 
-  const show = () => {
+  const show = async () => {
     if (isShown) return;
     isShown = true;
+    titleScreen.classList.remove("to-transparent");
+    await asleep(500);
     titleScreen.hidden = false;
     page.addEventListener("pointermove", changeTitleImagePosition);
   }
 
-  const hide = () => {
+  const hide = async () => {
     if (!isShown) return;
     isShown = false;
+    titleScreen.classList.add("to-transparent");
+    await asleep(500);
     titleScreen.hidden = true;
     page.removeEventListener("pointermove", changeTitleImagePosition);
   }
 
+  let mainHandler;
   let fileSelectorHandler;
   const addEventListeners = () => {
+    document.getElementById("title-memu-start").addEventListener("click", async () => {
+      await hide();
+      mainHandler.show();
+    });
     document.getElementById("title-memu-continue").addEventListener("click", () => {
       fileSelectorHandler.show();
     });
@@ -313,8 +349,10 @@ const titleScreen = (page) => {
 
   return {
     init({
-      fileSelector
+      fileSelector,
+      main,
     }) {
+      mainHandler = main;
       fileSelectorHandler = fileSelector;
       show();
       animateTitle();
@@ -322,6 +360,23 @@ const titleScreen = (page) => {
     },
     show,
     hide,
+  };
+};
+
+const sceneCharactorIllusts = () => {
+  const sceneCharactorIllusts = document.getElementById("illust");
+
+  const focusActiveCharacter = () => {
+    sceneCharactorIllusts.classList.add("focus-active-character");
+  };
+
+  const blurActiveCharacter = () => {
+    sceneCharactorIllusts.classList.remove("focus-active-character");
+  };
+
+  return {
+    focusActiveCharacter,
+    blurActiveCharacter,
   };
 };
 
@@ -362,6 +417,7 @@ const fileSelectorScreen = () => {
         });
       } else {
         buttonElement.addEventListener("click", () => {
+          alert("未実装！NEW PROJECTから始めてください！")
           loadProject();
         });
       }
@@ -421,16 +477,153 @@ const fileSelectorScreen = () => {
   };
 };
 
+const mainScreen = () => {
+  const mainScreen = document.getElementById("main");
+  const bg = document.getElementById("main-background");
+  let isShown = false;
+
+  const show = async () => {
+    if (isShown) return;
+    isShown = true;
+    mainScreen.hidden = false;
+    await asleep(0);
+    bg.classList.add("bb");
+    mainScreen.classList.remove("to-transparent");
+  };
+
+  const hide = async () => {
+    if (!isShown) return;
+    isShown = false;
+    bg.classList.remove("bb");
+    mainScreen.classList.add("to-transparent");
+    await asleep(500);
+    if (isShown) return;
+    mainScreen.hidden = true;
+  };
+
+  return {
+    init({ characterSelector }) {
+      document.getElementById("character").addEventListener("click", () => {
+        characterSelector.show();
+      });
+    },
+    show,
+    hide,
+  }
+};
+
+const characterSelectCard = () => {
+  const characterSelector = document.getElementById("character-selector");
+  let isShown = false;
+
+  const kanaLineButton = ((template) => (kanaLine, index) => {
+    const button = template.content.cloneNode(true);
+    const kanaLineButton = button.querySelector(".line-button");
+    kanaLineButton.textContent = kanaLine;
+    return button;
+  })(document.getElementById("character-selector-line-button-template"));
+
+  const addCharacter = (characterData) => {
+    
+  };
+
+  let sceneCharactorsHandler;
+  const init = ({ sceneCharactors }) => {
+    sceneCharactorsHandler = sceneCharactors;
+    characterSelector.append(...KANA_LINES.map(kanaLineButton));
+  };
+
+  const show = async () => {
+    if (isShown) return;
+    isShown = true;
+    characterSelector.hidden = false;
+    await asleep(0);
+    sceneCharactorsHandler.focusActiveCharacter();
+    characterSelector.classList.add("to-initial");
+  };
+
+  const hide = async () => {
+    if (!isShown) return;
+    isShown = false;
+    characterSelector.classList.remove("to-initial");
+    await asleep(500);
+    if (isShown) return;
+    sceneCharactorsHandler.blurActiveCharacter();
+    characterSelector.hidden = true;
+  };
+
+  return {
+    init,
+    addCharacter,
+    show,
+    hide,
+  };
+};
+
+const audioDetailCard = (() => {
+  const tabNames = ["accent", "intonation", "length"];
+  const tabs = {};
+  for (const tabName of tabNames) {
+    tabs[tabName] = {
+      button: document.getElementById(`audio-detail-${tabName}-tab-button`),
+      content: document.getElementById(`audio-detail-${tabName}-tab-content`),
+    };
+  }
+  let currentTabName = undefined;
+
+  const hideTab = (tabName) => {
+    tabs[tabName].content.hidden = true;
+    tabs[tabName].button.classList.remove("active-tab");
+  };
+
+  const changeTab = (tabName) => {
+    if (currentTabName === tabName) {
+      currentTabName = undefined;
+      hideTab(tabName);
+    } else {
+      const beforeTab = tabs[currentTabName];
+      if (beforeTab !== undefined) {
+        hideTab(currentTabName);
+      }
+      currentTabName = tabName;
+      tabs[tabName].content.hidden = false;
+      tabs[tabName].button.classList.add("active-tab");
+    }
+  };
+
+  const init = () => {
+    for (const [tabName, tab] of Object.entries(tabs)) {
+      tab.button.addEventListener("click", () => { changeTab(tabName); });
+    }
+  };
+
+  return {
+    init,
+  };
+});
+
 window.addEventListener("load", () => {
   const page = document.documentElement;
 
   const title = titleScreen(page);
   const fileSelector = fileSelectorScreen();
+  const main = mainScreen();
+  const sceneCharactors = sceneCharactorIllusts();
+  const characterSelector = characterSelectCard();
+  const audioDetail = audioDetailCard();
 
   title.init({
     fileSelector,
+    main,
   });
 
   fileSelector.init();
 
+  main.init({
+    characterSelector,
+  })
+  characterSelector.init({
+    sceneCharactors,
+  });
+  audioDetail.init();
 });
