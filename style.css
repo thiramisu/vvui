@@ -734,6 +734,7 @@ body {
   background: rgba(255, 255, 255, var(--little-transparent));
   height: calc(100% - 620px);
   left: 60px;
+  overflow-y: scroll;
   position: absolute;
   transition: transform 0.5s ease-out;
   width: 500px;

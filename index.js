@@ -579,7 +579,7 @@ const characterSelectCard = () => {
   const characterSelectorLineButtons = document.getElementById("character-selector-recent-buttons");
   let isShowing = false;
 
-  const characterSelectButton = ((template) => ({ name }) => {
+  const characterSelectButton = ((template) => (name, { color }) => {
     const clone = template.content.cloneNode(true);
     const characterSelectButton = clone.querySelector(".character-select-button");
     characterSelectButton.textContent = name;
@@ -593,15 +593,22 @@ const characterSelectCard = () => {
     return clone;
   })(document.getElementById("character-selector-recent-button-template"));
 
-  const addCharacters = (characterDatas) => {
-    characterSelector.append(...characterDatas.map(characterSelectButton));
+  const addCharacters = (characterData) => {
+    const fragment = document.createDocumentFragment();
+    for (const [name, data] of characterData) {
+      fragment.appendChild(characterSelectButton(name, data));
+    }
+    characterSelector.appendChild(fragment);
   };
 
   let sceneCharactorsHandler;
   const init = ({ sceneCharactors }) => {
     sceneCharactorsHandler = sceneCharactors;
     characterSelectorLineButtons.append(...$$$___RECENT_CHARACTERS___$$$.map(recentButton));
-    addCharacters([{ name: "このメニュー"}, { name: "周りの動作は"}, { name: "工事中です"}]);
+    const characters = Array
+      .from(Object.entries($$$___CHARACTER_DATA___$$$))
+      .sort((a, b) => a[0] > b[0]);
+    addCharacters(characters);
   };
 
   const show = async () => {
