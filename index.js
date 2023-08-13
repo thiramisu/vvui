@@ -559,8 +559,10 @@ const characterSelectCard = () => {
     characterSelectorLineButtons.hidden = false;
     await asleep(0);
     sceneCharactorsHandler.focusActiveCharacter();
+    characterSelectorLineButtons.classList.add("to-initial");;
+    await asleep(200);
+    if (!isShowing) return;
     characterSelector.classList.remove("to-top");
-    characterSelectorLineButtons.classList.add("to-initial");
   };
 
   const hide = async () => {
