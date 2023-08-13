@@ -75,6 +75,13 @@ const $$$___RECENT_PROJECTS_DATA___$$$ = [
 
 const $$$___LOAD_PROJECT_DATA___$$$ = 0;
 
+// キャラ候補に出るキャラ。
+// 順番は 選択中＞シーン中＞プロジェクト中。
+const $$$___RECENT_CHARACTERS___$$$ = [
+  "四国めたん",
+  "ずんだもん",
+];
+
 const $$$___TITLE_ILLUSTLATOR_NAMES___$$$ = [
   "",
   "坂本アヒル",
@@ -227,7 +234,6 @@ let lastPointerEventDispachTime = 0;
 const CALC_INTERVAL = 1000;
 const BACKGROUND_IMAGE_ID_MAX = 7;
 const PREVIEW_MAX_FILE_SIZE = 20;
-const KANA_LINES = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
 
 const sinInOut = (zeroToOne) => Math.sin((zeroToOne - 0.5) * Math.PI) + 0.5;
 
@@ -514,50 +520,56 @@ const mainScreen = () => {
 
 const characterSelectCard = () => {
   const characterSelector = document.getElementById("character-selector");
+  const characterSelectorLineButtons = document.getElementById("character-selector-recent-buttons");
   let isShown = false;
 
-  const kanaLineButton = ((template) => (kanaLine, index) => {
-    const button = template.content.cloneNode(true);
-    const kanaLineButton = button.querySelector(".line-button");
-    kanaLineButton.textContent = kanaLine;
-    return button;
-  })(document.getElementById("character-selector-line-button-template"));
+  const characterSelectButton = ((template) => ({ name }) => {
+    const clone = template.content.cloneNode(true);
+    const characterSelectButton = clone.querySelector(".character-select-button");
+    characterSelectButton.textContent = name;
+    return clone;
+  })(document.getElementById("character-selector-button-template"));
 
-  const addCharacter = (characterData) => {
-    
+  const recentButton = ((template) => (recent, index) => {
+    const clone = template.content.cloneNode(true);
+    const recentButton = clone.querySelector(".recent-button");
+    recentButton.textContent = recent;
+    return clone;
+  })(document.getElementById("character-selector-recent-button-template"));
+
+  const addCharacters = (characterDatas) => {
+    characterSelector.append(...characterDatas.map(characterSelectButton));
   };
 
   let sceneCharactorsHandler;
   const init = ({ sceneCharactors }) => {
     sceneCharactorsHandler = sceneCharactors;
-    characterSelector.append(...KANA_LINES.map(kanaLineButton));
-    addCharacter({
-      name: "a",
-    });
+    characterSelectorLineButtons.append(...$$$___RECENT_CHARACTERS___$$$.map(recentButton));
+    addCharacters([{name: "あ"}, { name: "ふむ"}]);
   };
 
   const show = async () => {
     if (isShown) return;
     isShown = true;
-    characterSelector.hidden = false;
+    characterSelectorLineButtons.hidden = false;
     await asleep(0);
     sceneCharactorsHandler.focusActiveCharacter();
-    characterSelector.classList.add("to-initial");
+    characterSelectorLineButtons.classList.add("to-initial");
   };
 
   const hide = async () => {
     if (!isShown) return;
     isShown = false;
-    characterSelector.classList.remove("to-initial");
+    characterSelectorLineButtons.classList.remove("to-initial");
     await asleep(500);
     if (isShown) return;
     sceneCharactorsHandler.blurActiveCharacter();
-    characterSelector.hidden = true;
+    characterSelectorLineButtons.hidden = true;
   };
 
   return {
     init,
-    addCharacter,
+    addCharacters,
     show,
     hide,
   };

@@ -91,7 +91,7 @@
               <span class="bold text-s file-selector-button-title break-work-absolutely">ファイルから読み込む</span>
               <span class="text-ss">より</span>
             </div>
-          </button>
+          </label>
         </div>
       </div>
     </div>
@@ -116,10 +116,9 @@
       value="#0000ff"
       style="position: absolute; user-select: initial;"
     />
+    <div id="character-selector" class="flex column rounded connect-top character-selector"></div>
     <div class="flex column text-l text-frame-wrapper">
-      <div id="character-selector" class="character-selector">
-        
-      </div>
+      <div id="character-selector-recent-buttons" class="character-selector-recent-buttons"></div>
       <div class="flex between end control text-frame-top">
         <div class="flex end">
           <button id="character" class="text-control-tab">
@@ -144,6 +143,12 @@
             <div class="text-s text-white single-line">EDIT</div>
             <span class="text-l text-white single-line material-symbols-outlined">
               edit
+            </span>
+          </button>
+          <button class="flex column center bold text-control-shortcut-button">
+            <div class="text-s text-white single-line">DELETE</div>
+            <span class="text-l text-white single-line material-symbols-outlined">
+              delete
             </span>
           </button>
           <button class="flex column center bold text-control-shortcut-button">
@@ -224,36 +229,41 @@
       </div>
     </div>
   </main>
-  <template id="file-selector-button-template">
-    <button class="button column-3 flex column start file-select-button">
-      <div class="flex start">
-        <img width="40" class="file-selector-button-preview-icon" />
-        <div class="flex column start">
-          <div class="text-s bold file-selector-button-preview-name"></div>
-          <div class="text-s file-selector-button-last-modified"></div>
+  <div id="templates" hidden>
+    <template id="file-selector-button-template">
+      <button class="button column-3 flex column start file-select-button">
+        <div class="flex start">
+          <img width="40" class="file-selector-button-preview-icon" />
+          <div class="flex column start">
+            <div class="text-s bold file-selector-button-preview-name"></div>
+            <div class="text-s file-selector-button-last-modified"></div>
+          </div>
         </div>
-      </div>
-      <div class="text-left text-m file-selector-button-preview-text break-work-absolutely"></div>
+        <div class="text-left text-m file-selector-button-preview-text break-work-absolutely"></div>
+        <div>
+          <span class="bold text-s file-selector-button-title break-work-absolutely"></span>
+          <span class="text-ss">より</span>
+        </div>
+        <div class="file-selector-button-characters"></div>
+      </button>
+    </template>
+    <template id="character-icon-template">
       <div>
-        <span class="bold text-s file-selector-button-title break-work-absolutely"></span>
-        <span class="text-ss">より</span>
+        <img class="character-icon-ss" height="20">
+        <span class="tooltip character-name-tooltip"></span>
       </div>
-      <div class="file-selector-button-characters"></div>
-    </button>
-  </template>
-  <template id="character-icon-template">
-    <div>
-      <img class="character-icon-ss" height="20">
-      <span class="tooltip character-name-tooltip"></span>
-    </div>
-  </template>
-  <template id="character-no-image-template">
-    <span class="material-symbols-outlined icon-m default-character-icon">
-      person
-    </span>
-  </template>
-  <template id="character-selector-line-button-template">
-    <button class="button text-l line-button"></button>
-  </template>
+    </template>
+    <template id="character-no-image-template">
+      <span class="material-symbols-outlined icon-m default-character-icon">
+        person
+      </span>
+    </template>
+    <template id="character-selector-button-template">
+      <button class="button text-m character-select-button"></button>
+    </template>
+    <template id="character-selector-recent-button-template">
+      <button class="button text-l recent-button"></button>
+    </template>
+  </div>
 </body>
 </html>
