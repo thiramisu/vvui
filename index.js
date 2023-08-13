@@ -428,7 +428,6 @@ const titleScreen = (page) => {
       animateTitle();
       document.getElementById("title-memu-start").addEventListener("click", async () => {
         titleCall.play();
-        console.log(titleCall);
         await hide();
         mainHandler.show();
       });
