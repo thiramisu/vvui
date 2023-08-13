@@ -4,5 +4,7 @@
 グーグルフォントのマテリアルシンボルを使用しています(Apache License 2.0)。
 This repository uses Material Symbol from Google Fonts under Apache License 2.0.
 
+画像データを始めとする話者の情報は [VOICEVOX/voicevox_blog](https://github.com/VOICEVOX/voicevox_blog) から引っ張ってきています。
+
 このリポジトリをVOICEVOX開発以外のために使用しないでください。
 Use this repository only for voicevox.
