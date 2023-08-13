@@ -94,16 +94,16 @@ const $$$___TITLE_ILLUSTLATOR_NAMES___$$$ = [
 ];
 
 const $$$___CHARACTER_DATA___$$$ = {
-  // 50音順
-  雨晴はう: {
-    latin: "amehare_hau",
-    nickname: "はう",
-    kana: "あめはれはう",
-  },
+  // 一応50音(辞書)順
   青山龍星: {
     latin: "aoyama_ryusei",
     nickname: "龍星",
     kana: "あおやまりゅうせい",
+  },
+  雨晴はう: {
+    latin: "amehare_hau", // ファイル名用
+    nickname: "はう",
+    kana: "あめはれはう",
   },
   櫻歌ミコ: {
     latin: "ouka_miko",
@@ -123,107 +123,107 @@ const $$$___CHARACTER_DATA___$$$ = {
   九州そら: {
     latin: "kyushu_sora",
     nickname: "そら",
-    line: "か",
+    line: "きゅうしゅうそら",
   },
   玄野武宏: {
     latin: "kurono_takehiro",
     nickname: "武宏",
-    line: "か",
+    kana: "くろのたけひろ",
   },
   剣崎雌雄: {
     latin: "kenzaki_mesuo",
     nickname: "雌雄",
-    line: "か",
+    line: "けんざきめすお",
   },
   後鬼: {
     latin: "goki",
     nickname: "後鬼",
-    line: "か",
+    kana: "ごき",
   },
   "小夜/SAYO": {
     latin: "sayo",
     nickname: "小夜",
-    line: "さ",
+    kana: "さよ",
   },
   四国めたん: {
     latin: "shikoku_metan",
     nickname: "めたん",
-    line: "さ",
+    kana: "しこくめたん",
   },
   白上虎太郎: {
     latin: "shirakami_kotarou",
     nickname: "虎太郎",
-    line: "さ",
+    line: "しらかみこたろう",
   },
   すんだもん: {
     latin: "zundamon",
     nickname: "すんだもん",
-    line: "さ",
+    kana: "ずんだもん",
   },
   ちび式じい: {
     latin: "chibishikiji",
     nickname: "ちびじい",
-    line: "た",
+    kana: "ちびしきじい",
   },
   中国うさぎ: {
     latin: "chugoku_usagi",
     nickname: "うさぎ",
-    line: "た",
+    kana: "ちゅうごくうさぎ",
   },
   ナースロボ＿タイプＴ: {
     latin: "nurserobo_typet",
     nickname: "ＴＴ",
-    line: "な",
+    kana: "なーすろぼたいぷてぃー",
   },
   波音リツ: {
     latin: "namine_ritsu",
     nickname: "リツ",
-    line: "な",
+    kana: "なみねりつ",
   },
   "No.7": {
     latin: "number_seven",
     nickname: "No.7",
-    line: "な",
+    line: "なんばーせぶん",
   },
   猫使アル: {
     latin: "nekotsuka_aru",
     nickname: "アル",
-    line: "な",
+    line: "ねこつかある",
   },
   猫使ビィ: {
-    latin: "bustup-nekotsuka_bi",
+    latin: "nekotsuka_bi",
     nickname: "ビィ",
-    line: "な",
+    line: "ねこつかびぃ",
   },
   春歌ナナ: {
     latin: "haruka_nana",
     nickname: "ナナ",
-    line: "は",
+    kana: "はるかなな",
   },
   "†聖騎士紅桜†": {
     latin: "horinaito_benizakura",
     nickname: "†紅桜†",
-    line: "は",
+    line: "ほーりーないとべにざくら",
   },
   WhiteCUL: {
     latin: "white_cul",
-    nickname: "WhiteCUL",
-    line: "は",
+    nickname: "WhiteCUL", // 「雪」よりも差別化できそうなのでそのまま英字
+    line: "ほわいとかる",
   },
   冥鳴ひまり: {
     latin: "meimei_himari",
     nickname: "ひまり",
-    line: "ま",
+    kana: "めいめいひまり",
   },
   もち子さん: {
     latin: "mochikosan",
     nickname: "もち子",
-    line: "ま",
+    kana: "もちこさん",
   },
   雀松朱司: {
     latin: "wakamatsu_akashi",
     nickname: "朱司",
-    line: "わ",
+    kana: "わかまつあかし",
   },
 };
 
@@ -275,7 +275,7 @@ const titleScreen = (page) => {
   let titleClientRect = titleScreen.getBoundingClientRect();
   const titleLogo = document.getElementById("title-logo");
 
-  let isShown = false;
+  let isShowing = false;
   
   const changeTitleImagePosition = (event) => {
     const now = Date.now();
@@ -324,8 +324,8 @@ const titleScreen = (page) => {
   };
 
   const show = async () => {
-    if (isShown) return;
-    isShown = true;
+    if (isShowing) return;
+    isShowing = true;
     titleScreen.classList.remove("to-transparent");
     await asleep(500);
     titleScreen.hidden = false;
@@ -333,8 +333,8 @@ const titleScreen = (page) => {
   }
 
   const hide = async () => {
-    if (!isShown) return;
-    isShown = false;
+    if (!isShowing) return;
+    isShowing = false;
     titleScreen.classList.add("to-transparent");
     await asleep(500);
     titleScreen.hidden = true;
@@ -389,7 +389,7 @@ const sceneCharactorIllusts = () => {
 const fileSelectorScreen = () => {
   const fileSelectorScreen = document.getElementById("file-selector");
   const buttonsWrapper = document.getElementById("file-selector-buttons-wrapper");
-  let isShown = false;
+  let isShowing = false;
 
   const replaceCharacterImage = ((template) => {
     return (event) => {
@@ -456,8 +456,8 @@ const fileSelectorScreen = () => {
   };
 
   const show = async () => {
-    if (isShown) return;
-    isShown = true;
+    if (isShowing) return;
+    isShowing = true;
     await loadRecentProjectFiles();
     fileSelectorScreen.hidden = false;
     await asleep(0); // アニメーションさせる
@@ -465,11 +465,11 @@ const fileSelectorScreen = () => {
   };
 
   const hide = async () => {
-    if (!isShown) return;
-    isShown = false;
+    if (!isShowing) return;
+    isShowing = false;
     fileSelectorScreen.classList.add("to-bottom");
     await asleep(500);
-    if (isShown) return;
+    if (isShowing) return;
     while(buttonsWrapper.children.length > 2) {
       buttonsWrapper.removeChild(buttonsWrapper.children[buttonsWrapper.children.length - 1]);
     }
@@ -486,11 +486,11 @@ const fileSelectorScreen = () => {
 const mainScreen = () => {
   const mainScreen = document.getElementById("main");
   const bg = document.getElementById("main-background");
-  let isShown = false;
+  let isShowing = false;
 
   const show = async () => {
-    if (isShown) return;
-    isShown = true;
+    if (isShowing) return;
+    isShowing = true;
     mainScreen.hidden = false;
     await asleep(0);
     bg.classList.add("bb");
@@ -498,19 +498,23 @@ const mainScreen = () => {
   };
 
   const hide = async () => {
-    if (!isShown) return;
-    isShown = false;
+    if (!isShowing) return;
+    isShowing = false;
     bg.classList.remove("bb");
     mainScreen.classList.add("to-transparent");
     await asleep(500);
-    if (isShown) return;
+    if (isShowing) return;
     mainScreen.hidden = true;
   };
 
   return {
     init({ characterSelector }) {
       document.getElementById("character").addEventListener("click", () => {
-        characterSelector.show();
+        if (characterSelector.isShowing) {
+          characterSelector.hide();
+        } else {
+          characterSelector.show();
+        }
       });
     },
     show,
@@ -521,7 +525,7 @@ const mainScreen = () => {
 const characterSelectCard = () => {
   const characterSelector = document.getElementById("character-selector");
   const characterSelectorLineButtons = document.getElementById("character-selector-recent-buttons");
-  let isShown = false;
+  let isShowing = false;
 
   const characterSelectButton = ((template) => ({ name }) => {
     const clone = template.content.cloneNode(true);
@@ -545,29 +549,34 @@ const characterSelectCard = () => {
   const init = ({ sceneCharactors }) => {
     sceneCharactorsHandler = sceneCharactors;
     characterSelectorLineButtons.append(...$$$___RECENT_CHARACTERS___$$$.map(recentButton));
-    addCharacters([{name: "あ"}, { name: "ふむ"}]);
+    addCharacters([{ name: "このメニュー"}, { name: "周りの動作は"}, { name: "工事中です"}]);
   };
 
   const show = async () => {
-    if (isShown) return;
-    isShown = true;
+    if (isShowing) return;
+    isShowing = true;
+    characterSelector.hidden = false;
     characterSelectorLineButtons.hidden = false;
     await asleep(0);
     sceneCharactorsHandler.focusActiveCharacter();
+    characterSelector.classList.remove("to-top");
     characterSelectorLineButtons.classList.add("to-initial");
   };
 
   const hide = async () => {
-    if (!isShown) return;
-    isShown = false;
+    if (!isShowing) return;
+    isShowing = false;
+    characterSelector.classList.add("to-top");
     characterSelectorLineButtons.classList.remove("to-initial");
-    await asleep(500);
-    if (isShown) return;
     sceneCharactorsHandler.blurActiveCharacter();
+    await asleep(500);
+    if (isShowing) return;
+    characterSelector.hidden = true;
     characterSelectorLineButtons.hidden = true;
   };
 
   return {
+    get isShowing() { return isShowing; },
     init,
     addCharacters,
     show,
