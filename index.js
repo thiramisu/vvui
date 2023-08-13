@@ -642,8 +642,11 @@ const characterSelectCard = () => {
     const recentButton = clone.querySelector(".recent-button");
     recentButton.textContent = recent;
     recentButton.addEventListener("mouseenter", (e) => {
-      console.log("a");
+      if (!isShowing) return;
       sceneCharactorsHandler.changeActiveCharacter(recent);
+    });
+    recentButton.addEventListener("click", (e) => {
+      hide();
     });
     return clone;
   })(document.getElementById("character-selector-recent-button-template"));
