@@ -311,6 +311,26 @@ const formatDate = (() => {
   return (date) => date === undefined ? "日時不明" : "昨日";
 })();
 
+const titleCallAudio = () => {
+  const audio = new Audio();
+
+  const init = () => {
+    const characters = Array.from(Object.entries($$$___CHARACTER_DATA___$$$));
+    const folderName = characters[Math.floor(Math.random() * characters.length)][1].latin;
+    audio.src = `resources/${folderName}/title.wav`;
+    audio.volume = 1;
+  };
+
+  const play = () => {
+    audio.play();
+  };
+
+  return {
+    init,
+    play,
+  };
+}
+
 const titleScreen = (page) => {
   let pageSize = {
     width: page.scrollWidth,
@@ -395,26 +415,26 @@ const titleScreen = (page) => {
 
   let mainHandler;
   let fileSelectorHandler;
-  const addEventListeners = () => {
-    document.getElementById("title-memu-start").addEventListener("click", async () => {
-      await hide();
-      mainHandler.show();
-    });
-    document.getElementById("title-memu-continue").addEventListener("click", () => {
-      fileSelectorHandler.show();
-    });
-  }
 
   return {
     init({
       fileSelector,
+      titleCall,
       main,
     }) {
       mainHandler = main;
       fileSelectorHandler = fileSelector;
       show();
       animateTitle();
-      addEventListeners();
+      document.getElementById("title-memu-start").addEventListener("click", async () => {
+        titleCall.play();
+        console.log(titleCall);
+        await hide();
+        mainHandler.show();
+      });
+      document.getElementById("title-memu-continue").addEventListener("click", () => {
+        fileSelectorHandler.show();
+      });
     },
     show,
     hide,
@@ -696,11 +716,15 @@ window.addEventListener("load", () => {
   const sceneCharactors = sceneCharactorIllusts();
   const characterSelector = characterSelectCard();
   const audioDetail = audioDetailCard();
+  const titleCall = titleCallAudio();
 
   title.init({
     fileSelector,
+    titleCall,
     main,
   });
+
+  titleCall.init();
 
   fileSelector.init();
 
