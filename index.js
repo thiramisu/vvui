@@ -442,6 +442,35 @@ const titleScreen = (page) => {
 
 const sceneCharactorIllusts = () => {
   const sceneCharactorIllusts = document.getElementById("illust");
+  let activeCharacter = undefined;
+
+  const images = {
+    四国めたん: document.getElementById("metan-illust"),
+    ずんだもん: document.getElementById("zundamon-illust"),
+  };
+
+  /* 複数切り替えはUI提案から外れるので封印、ずんだもんだけ切り替え可能に
+  const characterIllust = ((template) => (name, latin) => {
+    const clone = template.context.cloneNode(true);
+    const img = clone.querySelector(".character-image");
+    img.src=`resources/${latin}/bustup.png`;
+    return clone;
+  })();
+  */
+
+  const init = () => {
+    changeActiveCharacter("四国めたん");
+  };
+
+  const changeActiveCharacter = (name) => {
+    const image = images[name];
+    if (image === undefined) return;
+    if (activeCharacter !== undefined) {
+      images[activeCharacter].classList.remove("active-character-image");
+    }
+    images[name].classList.add("active-character-image");
+    activeCharacter = name;
+  };
 
   const focusActiveCharacter = () => {
     sceneCharactorIllusts.classList.add("focus-active-character");
@@ -452,6 +481,8 @@ const sceneCharactorIllusts = () => {
   };
 
   return {
+    init,
+    changeActiveCharacter,
     focusActiveCharacter,
     blurActiveCharacter,
   };
@@ -597,6 +628,7 @@ const characterSelectCard = () => {
   const characterSelector = document.getElementById("character-selector");
   const characterSelectorLineButtons = document.getElementById("character-selector-recent-buttons");
   let isShowing = false;
+  let sceneCharactorsHandler;
 
   const characterSelectButton = ((template) => (name, { color }) => {
     const clone = template.content.cloneNode(true);
@@ -609,6 +641,10 @@ const characterSelectCard = () => {
     const clone = template.content.cloneNode(true);
     const recentButton = clone.querySelector(".recent-button");
     recentButton.textContent = recent;
+    recentButton.addEventListener("mouseenter", (e) => {
+      console.log("a");
+      sceneCharactorsHandler.changeActiveCharacter(recent);
+    });
     return clone;
   })(document.getElementById("character-selector-recent-button-template"));
 
@@ -620,7 +656,6 @@ const characterSelectCard = () => {
     characterSelector.appendChild(fragment);
   };
 
-  let sceneCharactorsHandler;
   const init = ({ sceneCharactors }) => {
     sceneCharactorsHandler = sceneCharactors;
     characterSelectorLineButtons.append(...$$$___RECENT_CHARACTERS___$$$.map(recentButton));
@@ -637,7 +672,7 @@ const characterSelectCard = () => {
     characterSelectorLineButtons.hidden = false;
     await asleep(0);
     sceneCharactorsHandler.focusActiveCharacter();
-    characterSelectorLineButtons.classList.add("to-initial");;
+    characterSelectorLineButtons.classList.add("to-initial");
     await asleep(200);
     if (!isShowing) return;
     characterSelector.classList.remove("to-top");
@@ -722,14 +757,15 @@ window.addEventListener("load", () => {
     titleCall,
     main,
   });
-
   titleCall.init();
 
   fileSelector.init();
 
   main.init({
     characterSelector,
-  })
+  });
+
+  sceneCharactors.init();
   characterSelector.init({
     sceneCharactors,
   });
