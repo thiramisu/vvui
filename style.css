@@ -328,17 +328,23 @@ body {
   opacity: 1;
 }
 
-.title-menu-button-text {
+.title-menu-button-text-wrapper {
   color: #f8f8f8;
   display: flex;
   flex-direction: column;
-  filter: drop-shadow(0 0 3px black) drop-shadow(0 0 4px #999999);
-  font-weight: bold;
   transition: color 0.2s;
 }
 
-.title-menu-button:focus-visible > .title-menu-button-text,
-.title-menu-button:hover > .title-menu-button-text {
+.shadow3-4 {
+  filter: drop-shadow(0 0 3px black) drop-shadow(0 0 4px #999999);
+}
+
+.shadow0-3 {
+  filter: drop-shadow(0 0 3px #999999);
+}
+
+.title-menu-button:focus-visible > .title-menu-button-text-wrapper,
+.title-menu-button:hover > .title-menu-button-text-wrapper {
   color: var(--primary);
 }
 
@@ -484,9 +490,37 @@ body {
 .character-image {
   opacity: 0.7;
   pointer-events: none;
+  top: 90%;
   transition: left 0.5s cubic-bezier(0.4, -0.5, 0.6, 1.2);
+    transform: translate(-50%, -50%) scale(0.5);
   user-select: none;
   z-index: -1;
+}
+
+@media (min-height:320px) {
+  .character-image {
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+}
+
+@media (min-height:480px) {
+  .character-image {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+@media (min-height:640px) {
+  .character-image {
+    top: 50%;
+  }
+}
+
+@media (min-height:960px) {
+  .character-image {
+    bottom: 0;
+    top: initial;
+    transform: translate(-50%, 10%) scale(0.8);
+  }
 }
 
 @media (min-height:1080px) {
@@ -623,8 +657,24 @@ body {
   max-width: 1440px;
 }
 
-@media (max-width:1080px) {
+@media (max-height:639px) {
   .text-frame-wrapper {
+    left: initial;
+    height: 100%;
+    width: 100%;
+    min-width: 880px;
+  }
+}
+
+@media (max-height:799px) {
+  .text-frame-wrapper {
+    bottom: 0;
+  }
+}
+
+@media (max-width:1079px) {
+  .text-frame-wrapper {
+    bottom: 0;
     left: initial;
     width: 100%;
     min-width: 880px;
@@ -635,6 +685,27 @@ body {
 .text-frame-bottom {
   overflow: hidden;
   height: 100px;
+}
+
+@media (max-height:639px) {
+  .text-frame-top,
+  .text-frame-bottom {
+    background: var(--primary);
+  }
+}
+
+@media (max-height:639px) {
+  .text-frame-top {
+    height: 80px;
+    min-height:  80px;
+  }
+}
+
+@media (max-height:799px) {
+  .text-frame-bottom {
+    height: 80px;
+    min-height:  80px;
+  }
 }
 
 .text-control-tab-inner.character {
@@ -669,10 +740,17 @@ body {
 
 .text-frame-middle {
   border-radius: 8px;
+  flex-grow: 1;
   overflow: hidden;
 }
 
-@media (max-width:1080px) {
+@media (max-height:639px) {
+  .text-frame-middle {
+    border-radius: 0;
+  }
+}
+
+@media (max-width:1079px) {
   .text-frame-middle {
     border-radius: 0;
   }
@@ -680,15 +758,21 @@ body {
 
 .text-frame {
   background: rgba(var(--primary-rgb), var(--little-transparent));
+  flex-grow: 1;
   position: relative;
 }
 
 .text-field {
   padding: 40px;
-  min-height: 192px;
   flex-grow: 1;
   position: relative;
   z-index: 100;
+}
+
+@media (min-height:440px) {
+  .text-field {
+    min-height: 192px;
+  }
 }
 
 .play-button {
