@@ -64,7 +64,7 @@
           </g>
       </svg>
       <div id="title-description" class="position-center title-description">無料で使える中品質なテキスト読み上げソフトウェア</div>
-      <div id="file-selector" class="position-center dialog file-selector to-bottom" hidden>
+      <div id="file-selector" class="position-center title-dialog file-selector to-bottom" hidden>
         <div class="flex">
           <button id="dialog-back-to-title-button" class="flex button text-m column-3 dialog-back-to-title-button">
             タイトルへ戻る
@@ -72,8 +72,8 @@
               keyboard_double_arrow_down
             </span>
           </button>
-          <div class="column-6 text-ll dialog-title">
-            LOAD<span class="dialog-subtitle text-m"> / 最近のプロジェクトを読み込む</span>
+          <div class="column-6 text-ll title-dialog-title">
+            LOAD<span class="text-m"> / 最近のプロジェクトを読み込む</span>
           </div>
         </div>
         <div id="file-selector-buttons-wrapper" class="between flex start file-selector-buttons-wrapper">
@@ -274,5 +274,22 @@
       <button class="button text-l recent-button"></button>
     </template>
   </div>
+  <dialog id="alert-dialog" class="text-l dialog">
+    <form method="dialog" class="flex column">
+      <div id="alert-dialog-text"></div>
+      <div class="flex justify-end ">
+        <button class="column-3 button dialog-button" value="OK" autofocus>OK</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="confirm-dialog" class="text-m dialog">
+    <form method="dialog" class="flex column">
+      <div id="confirm-dialog-text"></div>
+      <div class="flex between">
+        <button class="column-3 button dialog-button" value="CANCEL">キャンセル</button>
+        <button class="column-3 button dialog-button" value="OK" autofocus>OK</button>
+      </div>
+    </form>
+  </dialog>
 </body>
 </html>

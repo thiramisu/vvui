@@ -97,6 +97,10 @@ body {
   justify-content: space-between;
 }
 
+.justify-end {
+  justify-content: end;
+}
+
 .column-3 {
   box-sizing: border-box;
   width: 270px;
@@ -282,6 +286,7 @@ body {
   font-weight: bold;
   line-height: 32px;
   margin: -10px;
+  outline: none;
   padding: 14px 0 5px 0;
   position: relative;
   width: 344px;
@@ -317,7 +322,7 @@ body {
                               rgba(190, 237, 190, 0));
 }
 
-.title-menu-button:focus::before,
+.title-menu-button:focus-visible::before,
 .title-menu-button:hover::before,
 .title-menu-button:active::after {
   opacity: 1;
@@ -332,6 +337,7 @@ body {
   transition: color 0.2s;
 }
 
+.title-menu-button:focus-visible > .title-menu-button-text,
 .title-menu-button:hover > .title-menu-button-text {
   color: var(--primary);
 }
@@ -351,12 +357,12 @@ body {
   user-select: all;
 }
 
-.dialog {
+.title-dialog {
   box-sizing: border-box;
   padding: 40px;
 }
 
-.dialog-title {
+.title-dialog-title {
   background: rgba(var(--primary-rgb), var(--little-transparent));
   border-radius: 4px;
   font-size: 64px;
@@ -393,10 +399,16 @@ body {
   user-select: none;
 }
 
+#file-selector-input:focus-visible + .button,
+.button:focus-visible,
 .button:hover {
   background-color: #FFFFFF;
   box-shadow: 30px 30px rgba(var(--primary-vivid-rgb), var(--little-transparent)),
     0 0 3px var(--primary-vivid);
+}
+
+#file-selector-input:focus-visible + .button {
+  outline: auto;
 }
 
 .dialog-back-to-title-button {
@@ -432,6 +444,7 @@ body {
   line-height: 1;
 }
 
+.file-non-existent-button:focus-visible,
 .file-non-existent-button:hover {
   background-color: #ffdddd;
 }
@@ -768,6 +781,46 @@ body {
 .audio-detail {
   background: white;
   padding: 40px;
+}
+
+/*
+ * ダイアログ
+ */
+.dialog {
+  border: solid 20px var(--primary);
+  border-radius: 8px;
+  box-sizing: border-box;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.15));
+  font-size: 25px;
+  font-weight: bold;
+  padding: 40px 80px;
+  width: 820px;
+}
+
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.dialog-button {
+  background: #f8f8f8;
+  border: solid 2px var(--primary-vivid);
+  border-radius: 20px;
+  color: var(--primary-vivid);
+  font-size: 24px;
+  height: 40px;
+  margin-top: 40px;
+  padding: initial;
+}
+
+.dialog-button:focus-visible,
+.dialog-button:hover {
+  box-shadow: 10px 10px rgba(var(--primary-vivid-rgb), var(--little-transparent));
+}
+
+.dialog-button[autofocus] {
+  background: var(--primary-vivid);
+  color: #f8f8f8;
+  outline: none;
 }
 
 /*

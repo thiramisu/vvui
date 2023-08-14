@@ -2,7 +2,7 @@
 
 const $$$___RECENT_PROJECTS_DATA___$$$ = [
   {
-    title: "やっほー…ばいばい", // .vvproj の抜き
+    title: "やっほー…ばいばい", // .vvproj 抜きファイル名
     characters: [ // セリフ多い順5人くらい？
       {
         name: "四国めたん", // 短縮名(4/1のアイコン名とか)
@@ -311,6 +311,27 @@ const formatDate = (() => {
   return (date) => date === undefined ? "日時不明" : "昨日";
 })();
 
+const dialog = (id) => {
+  const dialog = document.getElementById(id);
+  const dialogText = document.getElementById(`${id}-text`);
+
+  return {
+    show: (text) => {
+      dialog.showModal();
+      dialogText.textContent = text;
+      return new Promise((resolve) => {
+        dialog.addEventListener(
+          "close",
+          () => { resolve(dialog.returnValue); },
+          { once: true }
+        );
+      })
+    }
+  };
+};
+
+const Dialog = {};
+
 const titleCallAudio = () => {
   const audio = new Audio();
 
@@ -413,26 +434,21 @@ const titleScreen = (page) => {
     page.removeEventListener("pointermove", changeTitleImagePosition);
   }
 
-  let mainHandler;
-  let fileSelectorHandler;
-
   return {
     init({
       fileSelector,
       titleCall,
       main,
     }) {
-      mainHandler = main;
-      fileSelectorHandler = fileSelector;
       show();
       animateTitle();
       document.getElementById("title-memu-start").addEventListener("click", async () => {
         titleCall.play();
         await hide();
-        mainHandler.show();
+        main.show();
       });
       document.getElementById("title-memu-continue").addEventListener("click", () => {
-        fileSelectorHandler.show();
+        fileSelector.show();
       });
     },
     show,
@@ -518,14 +534,15 @@ const fileSelectorScreen = () => {
       const buttonElement = button.querySelector(".file-select-button");
       if (lastModified === undefined) {
         buttonElement.classList.add("file-non-existent-button");
-        buttonElement.addEventListener("click", () => {
-          if (confirm(`存在しないファイルです。場所が移動されたか、削除された可能性があります。この履歴を削除しますか？`)) {
-            alert("削除は未実装です！");
+        buttonElement.addEventListener("click", async () => {
+          const result = await Dialog.confirm(`存在しないファイルです。場所が移動されたか、削除された可能性があります。この履歴を削除しますか？`)
+          if (result === "OK") {
+            Dialog.alert("削除は未実装です！");
           }
         });
       } else {
         buttonElement.addEventListener("click", () => {
-          alert("未実装！NEW PROJECTから始めてください！")
+          Dialog.alert("未実装！NEW PROJECTから始めてください！")
           loadProject();
         });
       }
@@ -744,7 +761,7 @@ const audioDetailCard = (() => {
   };
 });
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   const page = document.documentElement;
 
   const title = titleScreen(page);
@@ -754,6 +771,12 @@ window.addEventListener("load", () => {
   const characterSelector = characterSelectCard();
   const audioDetail = audioDetailCard();
   const titleCall = titleCallAudio();
+
+  Dialog.alert = dialog("alert-dialog").show;
+  Dialog.confirm = dialog("confirm-dialog").show;
+  Dialog.warning = () => {
+    alert("未実装！！！");
+  };
 
   title.init({
     fileSelector,
