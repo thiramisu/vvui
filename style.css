@@ -515,7 +515,7 @@ body {
   }
 }
 
-@media (min-height:960px) {
+@media (min-height:864px) {
   .character-image {
     bottom: 0;
     top: initial;
